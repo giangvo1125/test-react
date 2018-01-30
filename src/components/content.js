@@ -7,7 +7,6 @@ class ContentComponent extends Component {
         context.router
 	}
 	componentDidMount() {
-		this.context.router.push('/home')
 	}
 	render() {
 		return (
@@ -22,4 +21,10 @@ ContentComponent.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default (ContentComponent)
+const mapStateToProps = (state) => {
+	return {
+
+	}
+}
+
+export default connect(null, null)(ContentComponent)

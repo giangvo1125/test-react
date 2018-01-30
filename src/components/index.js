@@ -27,4 +27,10 @@ ContentComponent.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default (ContentComponent)
+const mapStateToProps = (state) => {
+	return {
+
+	}
+}
+
+export default connect(null, null)(ContentComponent)
