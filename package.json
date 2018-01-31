@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start":"node server",
+    "start":"NODE_ENV=production node server",
     "build": "NODE_ENV=production CONFIG=production webpack --config webpack.config.prod.js",
     "start:prod": "NODE_ENV=production node server.js",
     "start:qa": "NODE_ENV=qa node server.js",
