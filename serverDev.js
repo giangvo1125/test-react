@@ -45,5 +45,5 @@ http.listen(process.env.PORT || port, domain, function (err) {
     return;
   }
 
-  console.log('listening on http://'+domain+':'+port)
+  console.log('listening on http://'+domain+':'+process.env.PORT || port)
 })
