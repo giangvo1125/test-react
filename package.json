@@ -4,15 +4,14 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "start":"node server",
     "build": "NODE_ENV=production CONFIG=production webpack --config webpack.config.prod.js",
     "start:prod": "NODE_ENV=production node server.js",
     "start:qa": "NODE_ENV=qa node server.js",
     "start:dev": "NODE_ENV=development node server.js",
     "start:test": "NODE_ENV=test node server.js",
     "start:demo": "NODE_ENV=demo node server.js",
-    "start": "yarn run clean && yarn run build && NODE_ENV=production yarn run go",
-    "heroku-prebuild": "yarn install --production=false",
-    "postinstall": "NODE_ENV=production webpack --config ./config/webpack.config.js"
+    "postinstall": "NODE_ENV=production webpack --config ./config/webpack.config.prod.js"
   },
   "dependencies": {
     "accounting-js": "^1.1.1",
