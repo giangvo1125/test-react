@@ -37,6 +37,8 @@ app.get('*', function(req, res) {
 
 var http = require('http').Server(app);
 
+console.log('process.env.PORT ',process.env.PORT)
+
 http.listen(process.env.PORT || port, domain, function (err) {
   if (err) {
     console.log(err);
