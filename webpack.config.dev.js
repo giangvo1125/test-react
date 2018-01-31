@@ -46,6 +46,8 @@ module.exports = {
       'axios': 'axios', 
       'recharts': 'recharts',
       'config': __dirname + '/config.js',
+      'RichTextEditor': 'react-rte',
+      'moment': 'moment'
     })
     //end define
     

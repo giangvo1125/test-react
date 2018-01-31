@@ -12,12 +12,36 @@ class BodyComponent extends Component {
 	}
 	componentDidMount() {
 	}
+	_renderItem(item) {
+		switch(item.blog.type) {
+			case "1":
+				return (
+					<li className="animated fadeInUp" key={item.blog.content}>
+						<Note 
+							id={item.blog.content}
+							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							src={item.files[0].path}
+							content={item.blog.content}
+						/>
+            		</li>
+				)
+			break;
+		}
+	}
 	render() {
+		let {blogs} = this.props;
+		console.log('blogs ',blogs)
+		let elem = blogs.map((item, index) => {
+			return this._renderItem(item)
+			
+		})
+		console.log('elem ',elem)
 		return (
 			<div id="site-container" className="clearfix">
 	            <section id="primary" className="sidebar-off clearfix">
 	                <div id="content" role="main">
 	                    <ul id="timeline" className="clearfix">
+	                    	{elem}
 	                    	<li className="animated fadeInUp">
 	                    		<Audio/>
 	                    	</li>
@@ -33,6 +57,7 @@ class BodyComponent extends Component {
 	                    	<li className="animated fadeInUp">
 	                    		<Status/>
 	                    	</li>
+
 	                    </ul>
 	                    <nav role="navigation" id="nav-below" className="site-navigation paging-navigation clearfix">
 	                        <ul className="clearfix">
@@ -50,4 +75,11 @@ BodyComponent.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default (BodyComponent)
+const mapStateToProps = (state) => {
+	return {
+		blogs: state.write_blog.blogs, 
+	}
+}
+
+export default connect(mapStateToProps, null)(BodyComponent)
+

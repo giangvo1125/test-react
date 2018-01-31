@@ -1,1 +1,1 @@
-export demo from './demo_reducer'
+export write_blog from './write_blog_reducer'

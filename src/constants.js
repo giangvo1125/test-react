@@ -1,2 +1,4 @@
-export const ADD_NEW_ITEM = 'add_new_item';
-export const REMOVE_ITEM = 'remove_item';
+export const ON_BEGIN_WRITE_BLOG = 'on-begin-write-blog';
+export const UPDATE_VALUE_CONTENT = 'update-value-content';
+export const CREATE_BLOG = 'create-blog';
+export const GET_BLOG = 'get-blog';

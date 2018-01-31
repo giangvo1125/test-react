@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import WriteBlogAction from '../../actions/write_blog_action'
 
 class HeaderComponent extends Component {
 	constructor(props, context) {
@@ -8,18 +11,45 @@ class HeaderComponent extends Component {
 	}
 	componentDidMount() {
 	}
+	_onClickGoToWrite(id) {
+		this.props.onBeginWriteBlog(id)
+	}
 	render() {
+		let {typeBlog} = this.props;
+
+		let item_menu1 = typeBlog.map((item, index) => {
+			return (
+				<li 
+					key={`item-1-${index}`} 
+					className="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home"
+					onClick={this._onClickGoToWrite.bind(this, item.id)}
+				>
+					<a>{item.label}</a>
+				</li>
+			)
+		})
+
+		let item_menu2 = typeBlog.map((item, index) => {
+			return (
+				<li 
+					key={`item-2-${index}`} 
+					className="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home"
+					onClick={this._onClickGoToWrite.bind(this, item.id)}
+				>
+					<a>{item.label}</a>
+				</li>
+			)
+		})
+
 		return (
 			<header id="site-header" className="clearfix" role="banner">
 	            <div id="logo">
 	                <div className="container"> <a title="Scopic" href="https://demo.herothemes.com/scopic"> <img alt="Scopic" src="https://mk0herothemesdek9380.kinstacdn.com/wp-content/themes/scopic/images/logo.png" /> </a></div>
 	            </div>
 	            <nav id="nav-primary-mobile" className="clearfix">
-	                <a className="menu-toggle" ><i className="fa fa-bars"></i>Menu</a>
+	                <a className="menu-toggle" ><i className="fa fa-bars"></i>Write Blog</a>
 	                <ul id="mobile-menu" className="clearfix">
-	                    <li id="menu-item-104" className="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-104"><a href="http://demo.herothemes.com/scopic/">Home</a></li>
-	                    <li id="menu-item-113" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-113"><a href="https://demo.herothemes.com/scopic/sample-page/">Sample Page</a></li>
-	                    <li id="menu-item-71" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-71"><a href="https://demo.herothemes.com/scopic/contact/">Contact</a></li>
+	                    {item_menu1}
 	                </ul>
 	            </nav>
 	            <div id="header-bottom" role="navigation" className="clearfix">
@@ -27,11 +57,9 @@ class HeaderComponent extends Component {
 	                    <nav id="nav-primary">
 	                        <ul>
 	                            <li>
-	                                <a ><i className="fa fa-reorder"></i>Menu</a>
+	                                <a ><i className="fa fa-reorder"></i>Write Blog</a>
 	                                <ul id="menu-primary-nav" className="nav clearfix">
-	                                    <li className="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-104"><a href="http://demo.herothemes.com/scopic/">Home</a></li>
-	                                    <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-113"><a href="https://demo.herothemes.com/scopic/sample-page/">Sample Page</a></li>
-	                                    <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-71"><a href="https://demo.herothemes.com/scopic/contact/">Contact</a></li>
+	                                    {item_menu2}
 	                                </ul>
 	                            </li>
 	                        </ul>
@@ -53,4 +81,17 @@ HeaderComponent.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default (HeaderComponent)
+const mapStateToProps = (state) => {
+	return {
+		typeBlog: state.write_blog.typeBlog
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		...WriteBlogAction,
+	}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent)
+
