@@ -11,7 +11,7 @@
     "start:dev": "NODE_ENV=development node server.js",
     "start:test": "NODE_ENV=test node server.js",
     "start:demo": "NODE_ENV=demo node server.js",
-    "postinstall": "NODE_ENV=production webpack --config ./config/webpack.config.prod.js"
+    "postinstall": "NODE_ENV=production webpack --config webpack.config.prod.js"
   },
   "dependencies": {
     "accounting-js": "^1.1.1",
