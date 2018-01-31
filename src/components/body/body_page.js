@@ -30,7 +30,7 @@ class BodyComponent extends Component {
 	}
 	render() {
 		let {blogs} = this.props;
-		console.log('blogs ',blogs)
+		console.log('blogs ',blogs) 
 		let elem = blogs.map((item, index) => {
 			return this._renderItem(item)
 			
