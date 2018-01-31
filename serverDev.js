@@ -37,7 +37,7 @@ app.get('*', function(req, res) {
 
 var http = require('http').Server(app);
 
-http.listen(port, domain, function (err) {
+http.listen(null, domain, function (err) {
   if (err) {
     console.log(err);
     return;
