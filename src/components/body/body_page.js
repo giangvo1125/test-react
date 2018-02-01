@@ -19,7 +19,7 @@ class BodyComponent extends Component {
 					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
 						<Note 
 							id={item.blog.content}
-							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							time={moment(item.blog.createdAt).fromNow()}
 							src={item.files && item.files.length > 0 ? item.files[0].path : ''}
 							content={item.blog.content}
 						/>
@@ -31,7 +31,7 @@ class BodyComponent extends Component {
 					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
 						<Status 
 							id={item.blog.content}
-							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							time={moment(item.blog.createdAt).fromNow()}
 							src={item.files && item.files.length > 0 ? item.files[0].path : ''}
 							content={item.blog.content}
 						/>
@@ -43,7 +43,7 @@ class BodyComponent extends Component {
 					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
 						<Audio 
 							id={item.blog.content}
-							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							time={moment(item.blog.createdAt).fromNow()}
 							link={item.blog.link || ''}
 							content={item.blog.content}
 						/>
@@ -55,7 +55,7 @@ class BodyComponent extends Component {
 					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
 						<Gallery 
 							id={item.blog.content}
-							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							time={moment(item.blog.createdAt).fromNow()}
 							files={item.files || ''}
 							content={item.blog.content}
 						/>
