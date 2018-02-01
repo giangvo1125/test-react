@@ -1,6 +1,6 @@
 var Dropbox = require('dropbox').Dropbox;
 const uuidv1 = require('uuid/v1');
-
+// https://blogs-ibcurt.herokuapp.com
 var dbx = new Dropbox({ accessToken: '5PWsLfRTL8AAAAAAAAAAYT8Jo3peXlCJvylaiGgxvEs2cxsaLNcLZC5w9GuNVphK' });
 const onBeginWriteBlog = (id, isShowWriteBlog = true) => (dispatch) => {
 	dispatch({
@@ -21,29 +21,24 @@ const updateValueContent = (value) => (dispatch) => {
 	})
 }
 
+const updateLink = (value) => (dispatch) => {
+	dispatch({
+		type: types.UPDATE_VALUE_LINK, 
+		payload: {
+			link: value, 
+		}
+	})
+} 
+
 const onSubmitContent = (files) => (dispatch, getState) => {
-	let { writeBlogType, valueContent } = getState().write_blog;
-	console.log('dbx ',dbx)
-	// dbx.filesUpload({path: '/'+files[0].name, contents: files[0]})
-	// .then(function(response) {
-	// 	console.log(response);
-	// })
- //  	.catch(function(error) {
- //    	console.log(error);
- //  	});
-
- // 	dbx.sharingCreateSharedLink({path:"/search_01.png"})
- // 	.then(function(response) {
-	// 	console.log(response);
-	// })
- //  	.catch(function(error) {
- //    	console.log(error);
- //  	});
-
+	let { writeBlogType, valueContent, link } = getState().write_blog;
  	var obj = {blog: {content: '', link: ''}}
  	function getShareLink(file) {
  		var p = new Promise((a, b) => {
- 			dbx.filesUpload({path: '/'+file.name, contents: file})
+ 			let filename = ''
+ 			let d = file.type.substr(file.type.indexOf('/') + 1, file.type.length)
+ 			filename = `${uuidv1()}.${d}`
+ 			dbx.filesUpload({path: '/'+filename, contents: file})
 	 		.then((response) => {
 	 			dbx.sharingCreateSharedLink({path:response.path_display})
 	 			.then((link) => {
@@ -60,50 +55,48 @@ const onSubmitContent = (files) => (dispatch, getState) => {
  		});
  		return p;
  	}
- 	switch(writeBlogType) {
- 		case 1:
- 			var promise = []
- 			if(files && files.length > 0) {
- 				for(var i = 0; i < files.length; i++) {
- 					promise.push(getShareLink(files[i]))
- 				}
- 			}
- 			Promise.all(promise)
- 			.then((uploaded) => {
- 				var filesUpload = []
- 				if(uploaded.length > 0) {
- 					for(var i = 0; i < uploaded.length; i++) {
- 						filesUpload.push({path: uploaded[i]})
- 					}
- 				}
- 				obj.files = filesUpload;
- 				obj.blog.content = valueContent;
- 				obj.blog.type = writeBlogType;
- 				axios.post('https://blogs-ibcurt.herokuapp.com/create-blog', obj)
- 				.then((response) => {
- 					if(response.data.status == 0) {
- 						alert('Create Successfully');
- 						dispatch({
- 							type: types.CREATE_BLOG, 
- 							payload: {
- 								writeBlogType: '', 
-								valueContent: '', 
-								isShowWriteBlog: false,
- 							}
- 						})
- 					}
- 				}, (err) => {
- 					console.log('err ',err)
- 				})
- 			},(err) => {
- 				console.log('err ',err)
- 			})
- 		break;
- 	}
+ 	var promise = []
+	if(files && files.length > 0) {
+		for(var i = 0; i < files.length; i++) {
+			promise.push(getShareLink(files[i]))
+		}
+	}
+	Promise.all(promise)
+	.then((uploaded) => {
+		var filesUpload = []
+		if(uploaded.length > 0) {
+			for(var i = 0; i < uploaded.length; i++) {
+				filesUpload.push({path: uploaded[i]})
+			}
+		}
+		obj.files = filesUpload;
+		obj.blog.content = valueContent;
+		obj.blog.type = writeBlogType;
+		obj.blog.link = link;
+		axios.post('http://localhost:2019/create-blog', obj)
+		.then((response) => {
+			if(response.data.status == 0) {
+				alert('Create Successfully');
+				dispatch({
+					type: types.CREATE_BLOG, 
+					payload: {
+						writeBlogType: '', 
+					valueContent: '', 
+					link: '', 
+					isShowWriteBlog: false,
+					}
+				})
+			}
+		}, (err) => {
+			console.log('err ',err)
+		})
+	},(err) => {
+		console.log('err ',err)
+	})
 }
 
 const getBlogs = () => (dispatch) => {
-	axios.get('https://blogs-ibcurt.herokuapp.com/get-blog')
+	axios.get('http://localhost:2019/get-blog')
 	.then((response) => {
 		// console.log('response ',response)
 		let {data} = response
@@ -121,4 +114,5 @@ module.exports = {
 	updateValueContent, 
 	onSubmitContent, 
 	getBlogs, 
+	updateLink, 
 }

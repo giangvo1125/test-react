@@ -16,11 +16,47 @@ class BodyComponent extends Component {
 		switch(item.blog.type) {
 			case "1":
 				return (
-					<li className="animated fadeInUp" key={item.blog.content}>
+					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
 						<Note 
 							id={item.blog.content}
 							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
-							src={item.files[0].path}
+							src={item.files && item.files.length > 0 ? item.files[0].path : ''}
+							content={item.blog.content}
+						/>
+            		</li>
+				)
+			break;
+			case "2":
+				return (
+					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
+						<Status 
+							id={item.blog.content}
+							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							src={item.files && item.files.length > 0 ? item.files[0].path : ''}
+							content={item.blog.content}
+						/>
+            		</li>
+				)
+			break;
+			case "4":
+				return (
+					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
+						<Audio 
+							id={item.blog.content}
+							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							link={item.blog.link || ''}
+							content={item.blog.content}
+						/>
+            		</li>
+				)
+			break;
+			case "5":
+				return (
+					<li className="animated fadeInUp" key={`${item.blog.content}-${item.blog.id}`}>
+						<Gallery 
+							id={item.blog.content}
+							time={moment(item.blog.createdAt).format('DD/MM/YYYY')}
+							files={item.files || ''}
 							content={item.blog.content}
 						/>
             		</li>
@@ -30,34 +66,16 @@ class BodyComponent extends Component {
 	}
 	render() {
 		let {blogs} = this.props;
-		console.log('blogs ',blogs) 
 		let elem = blogs.map((item, index) => {
 			return this._renderItem(item)
 			
 		})
-		console.log('elem ',elem)
 		return (
 			<div id="site-container" className="clearfix">
 	            <section id="primary" className="sidebar-off clearfix">
 	                <div id="content" role="main">
 	                    <ul id="timeline" className="clearfix">
 	                    	{elem}
-	                    	<li className="animated fadeInUp">
-	                    		<Audio/>
-	                    	</li>
-	                    	<li className="animated fadeInUp">
-	                    		<Gallery/>
-	                    	</li>
-	                    	<li className="animated fadeInUp">
-	                    		<Image/>
-	                    	</li>
-	                    	<li className="animated fadeInUp">
-	                    		<Note/>
-	                    	</li>
-	                    	<li className="animated fadeInUp">
-	                    		<Status/>
-	                    	</li>
-
 	                    </ul>
 	                    <nav role="navigation" id="nav-below" className="site-navigation paging-navigation clearfix">
 	                        <ul className="clearfix">

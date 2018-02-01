@@ -13,7 +13,16 @@ class NoteComponent extends Component {
                 <span className="entry-date"><span className="entry-meta-date"><time dateTime={this.props.time|| ''}>{this.props.time || ''}</time></span></span>
                 <div className="hentry-box">
                     <div className="entry-status clearfix">
-                        <img alt='' src={this.props.src || ''} srcSet={this.props.src || ''} className='avatar avatar-60 photo' height='60' width='60' />
+                        {
+                            this.props.src ? 
+                            <img 
+                                alt='' 
+                                src={this.props.src || ''} 
+                                srcSet={this.props.src || ''} 
+                                className='avatar avatar-60 photo' 
+                                height='60' 
+                                width='60' /> : ''
+                        }
                         <p>{this.props.content || ''}</p>
                     </div>
                 </div>

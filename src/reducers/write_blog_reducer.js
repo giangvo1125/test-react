@@ -3,13 +3,14 @@ const initState = {
 	typeBlog: [
 		{id: 1, label: 'Note'}, 
 		{id: 2, label: 'Status'}, 
-		{id: 3, label: 'Image'}, 
+		// {id: 3, label: 'Image'}, 
 		{id: 4, label: 'Audio'}, 
 		{id: 5, label: 'Gallery'}, 
 	], 
 	writeBlogType: '', 
 	valueContent: '', 
 	blogs: [], 
+	link: '', 
 }
 
 function writeBlog(state = initState, action) {
@@ -21,6 +22,8 @@ function writeBlog(state = initState, action) {
 		case types.CREATE_BLOG:
 			return {...state, ...action.payload}
 		case types.GET_BLOG:
+			return {...state, ...action.payload}
+		case types.UPDATE_VALUE_LINK:
 			return {...state, ...action.payload}
 		default:
 			return state;

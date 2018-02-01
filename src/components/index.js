@@ -18,7 +18,6 @@ class ContentComponent extends Component {
 		this.props.getBlogs()
 	}
 	componentDidUpdate() {
-		console.log('34234')
 		if(this.props.isShowWriteBlog == false) {
 			this.props.getBlogs()
 		}

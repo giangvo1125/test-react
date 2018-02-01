@@ -55,46 +55,64 @@ class WriteBlogComponent extends Component {
   		let {files} = this.state;
   		this.props.onSubmitContent(files);
   	}
+  	_onWriteLink(e) {
+  		var value = e.target.value;
+  		this.props.updateLink(value)
+  	}
 	_renderContent() {
-		let {writeBlogType} = this.props;
-		switch(writeBlogType) {
-			case 1:
-				return(
-					<div>
-						<RichTextEditor
-					        value={this.state.value}
-					        onChange={this._onWriteContent.bind(this)}
-					        toolbarConfig={toolbarConfig}
-					        className="rich-text"
-				      	/>
-				      	<section style={{marginLeft: '10%', marginRight: '10%', marginTop: '15px'}}>
-        					<div className="dropzone">
-          						<Dropzone 
-          							accept="image/png, image/jpeg, image/jpg" 
-          							onDrop={this._onDrop.bind(this)} 
-          							style={{
-									    height: '200px',
-									    borderWidth: '2px',
-									    borderColor: 'rgb(102, 102, 102)',
-									    borderStyle: 'dashed',
-									    borderRadius: '5px',
-          							}}
-          						>
-            						<p>Try dropping some files here, or click to select files to upload.</p>
-          						</Dropzone>
-        					</div>
-        					<aside>
-          						<h2>Dropped files</h2>
-      							<ul>
-						            {
-						              this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
-						            }
-      							</ul>
-        					</aside>
-      					</section>
+		let {writeBlogType, link} = this.props;
+		
+		if(writeBlogType == 1 || writeBlogType == 2 || writeBlogType == 3) {
+			return(
+				<div>
+					<RichTextEditor
+				        value={this.state.value}
+				        onChange={this._onWriteContent.bind(this)}
+				        toolbarConfig={toolbarConfig}
+				        className="rich-text"
+			      	/>
+			      	<section style={{marginLeft: '10%', marginRight: '10%', marginTop: '15px'}}>
+    					<div className="dropzone">
+      						<Dropzone 
+      							accept="image/png, image/jpeg, image/jpg" 
+      							onDrop={this._onDrop.bind(this)} 
+      							style={{
+								    height: '200px',
+								    borderWidth: '2px',
+								    borderColor: 'rgb(102, 102, 102)',
+								    borderStyle: 'dashed',
+								    borderRadius: '5px',
+      							}}
+      						>
+        						<p>Try dropping some files here, or click to select files to upload.</p>
+      						</Dropzone>
+    					</div>
+    					<aside>
+      						<h2>Dropped files</h2>
+  							<ul>
+					            {
+					              this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
+					            }
+  							</ul>
+    					</aside>
+  					</section>
+				</div>
+			)
+		}
+		else if (writeBlogType == 4) {
+			return(
+				<div>
+					<div style={{marginLeft: '10%', marginRight: '10%', marginTop: '15px', marginBottom: '15px'}}>
+						<label>Link: </label><input value={link || ''} className="form-control" style={{width: '50%'}} onChange={this._onWriteLink.bind(this)} />
 					</div>
-				)
-			break;
+					<RichTextEditor
+				        value={this.state.value}
+				        onChange={this._onWriteContent.bind(this)}
+				        toolbarConfig={toolbarConfig}
+				        className="rich-text"
+			      	/>
+				</div>
+			)
 		}
 	}
 	render() {
@@ -125,6 +143,7 @@ const mapStateToProps = (state) => {
 	return {
 		writeBlogType: state.write_blog.writeBlogType, 
 		valueContent: state.write_blog.valueContent, 
+		link: state.write_blog.link, 
 	}
 }
 
