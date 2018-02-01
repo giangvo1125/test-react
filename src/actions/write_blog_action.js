@@ -73,7 +73,7 @@ const onSubmitContent = (files) => (dispatch, getState) => {
 		obj.blog.content = valueContent;
 		obj.blog.type = writeBlogType;
 		obj.blog.link = link;
-		axios.post('http://localhost:2019/create-blog', obj)
+		axios.post('https://blogs-ibcurt.herokuapp.com/create-blog', obj)
 		.then((response) => {
 			if(response.data.status == 0) {
 				alert('Create Successfully');
@@ -96,7 +96,7 @@ const onSubmitContent = (files) => (dispatch, getState) => {
 }
 
 const getBlogs = () => (dispatch) => {
-	axios.get('http://localhost:2019/get-blog')
+	axios.get('https://blogs-ibcurt.herokuapp.com/get-blog')
 	.then((response) => {
 		// console.log('response ',response)
 		let {data} = response
