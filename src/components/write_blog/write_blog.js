@@ -62,7 +62,7 @@ class WriteBlogComponent extends Component {
 	_renderContent() {
 		let {writeBlogType, link} = this.props;
 		
-		if(writeBlogType == 1 || writeBlogType == 2 || writeBlogType == 3) {
+		if(writeBlogType == 1 || writeBlogType == 2 || writeBlogType == 5) {
 			return(
 				<div>
 					<RichTextEditor
