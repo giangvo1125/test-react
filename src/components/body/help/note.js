@@ -23,7 +23,7 @@ class NoteComponent extends Component {
                                 height='60' 
                                 width='60' /> : ''
                         }
-                        <p>{this.props.content || ''}</p>
+                        <p style={{textShadow: '-0.25px 0 black, 0 0.25px black, 0.25px 0 black, 0 -0.25px black'}}>{this.props.content || ''}</p>
                     </div>
                 </div>
             </article>
