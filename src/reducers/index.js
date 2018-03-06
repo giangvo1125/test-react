@@ -1,1 +1,1 @@
-export write_blog from './write_blog_reducer'
+export users from './user_reducer'

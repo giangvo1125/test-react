@@ -377,3 +377,12 @@ export const countItemObjHasValue = (obj) => {
 }
 
 export const inputElementString = 'input:text, input:password, input:file, select, textarea';
+
+export const checkArray = (array) => {
+    if (Array.isArray(array) && array.length > 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}

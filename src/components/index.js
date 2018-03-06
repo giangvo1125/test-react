@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Header from './header/header_page'
-import Body from './body/body_page'
-import Footer from './footer/footer_page'
-import WriteBlog from './write_blog/write_blog'
+import userAction from '../actions/user_action'
 
-import WriteBlogAction from '../actions/write_blog_action'
+import { getTopUsers } from './selector'
 
 class ContentComponent extends Component {
 	constructor(props, context) {
@@ -15,26 +12,34 @@ class ContentComponent extends Component {
         context.router
 	}
 	componentWillMount() {
-		this.props.getBlogs()
-	}
-	componentDidUpdate() {
-		if(this.props.isShowWriteBlog == false) {
-			this.props.getBlogs()
-		}
+		this.props.getListUser()
 	}
 	componentDidMount() {
 	}
+	_onViewDetail(username) {
+		this.context.router.push(`/detail/${username}`)
+	}
 	render() {
-		let {isShowWriteBlog} = this.props;
+		let { list_user } = this.props;
+		var list = list_user.map((item, index) => {
+			return (
+				<a 
+					key={`user-${item.login}-${index}`}
+	        		className="btn btn-primary"  
+	        		role="button"
+	        		onClick={this._onViewDetail.bind(this, item.login)}>
+	        		{item.login}
+	        	</a>
+			)
+		})
 		return (
-			<div>
-				<Header/>
-				{
-					isShowWriteBlog == false ? 
-		        	<Body/> : <WriteBlog/>
-				}
-		        <Footer/>
-			</div>
+			<div className="jumbotron">
+		    	<h1>Top 5 GitHub Users</h1>
+		        <p>Tab the username to see more information</p>
+		        <p>
+		        	{list}
+		        </p>
+      		</div>
 		)
 	}
 }
@@ -45,14 +50,8 @@ ContentComponent.contextTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		isShowWriteBlog: state.write_blog.isShowWriteBlog
+		list_user: getTopUsers(state), 
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({
-		...WriteBlogAction,
-	}, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContentComponent)
+export default connect(mapStateToProps, userAction)(ContentComponent)

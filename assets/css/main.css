@@ -1,0 +1,39 @@
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  padding: 0 10px; }
+  .list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee; }
+    .list li a {
+      display: flex;
+      align-items: center; }
+      .list li a .avatar {
+        width: 60px;
+        height: 60px; }
+        .list li a .avatar img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          display: block; }
+      .list li a .list-content {
+        flex: 1;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column; }
+        .list li a .list-content .list-name {
+          font-size: 20px; }
+        .list li a .list-content .list-address {
+          font-size: 13px;
+          color: #999; }
+.back-btn {
+  display: inline-block;
+  padding: 10px;
+  background: gray;
+  color: white; }
+  .back-btn:hover {
+    text-decoration: none;
+    color: white;
+    cursor: pointer; }
