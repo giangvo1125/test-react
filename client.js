@@ -14,9 +14,12 @@ const store = configureStore(browserHistory, state)
 const createScrollHistory = useScroll(createBrowserHistory)
 const appHistory = useRouterHistory(createScrollHistory)()
 const history = syncHistoryWithStore(appHistory, store)
+
+
 render(
   <Provider store={store}>
     <Router history={history} routes={routes} />
   </Provider>,
   document.getElementById('mount')
 )
+

@@ -1,5 +1,4 @@
 //services loading UI
-import  accounting  from 'accounting-js';
 
 export const blockUI = (isBlock) => {
 	if(isBlock == true) {
@@ -221,17 +220,7 @@ export const searchAction = (userId, setState) => {
 		input.placeholder = 'No event have that name'
 	})
 }
-export const formatMoney = (value) => {
-     let string = '$0.00';
-    let realValue = Math.abs(value);
-    if(isNaN(realValue)) {
-        string = accounting.formatMoney(value);
-    }
-    else {
-        string = '$ ' + realValue + '.00'
-    }
-    return string;
-}
+
 export const formatTime = (value) => {
 		const offset =  -(new Date().getTimezoneOffset() / 60);
 		// return moment(value).add(7, 'hours').fromNow();
