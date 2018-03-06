@@ -15,7 +15,8 @@ class UserComponent extends Component {
 				username
 			}
 		} = this.props
-		this.props.getDetailUser(username)
+		// this.props.getDetailUser(username)
+		this.props.getDetailUserForCondition(username)
 	}
 	componentDidMount() {
 	}

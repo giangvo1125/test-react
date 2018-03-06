@@ -14,6 +14,8 @@ function writeBlog(state = initState, action) {
 			return {...state, ...action.payload}
 		case types.GET_LIST_USER_WITH_CONDITION:
 			return {...state, ...action.payload}
+		case types.GET_DETAIL_USER_WITH_CONDITION:
+			return {...state, ...action.payload}
 		default:
 			return state;
 

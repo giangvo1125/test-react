@@ -13,7 +13,7 @@ class ContentComponent extends Component {
 	}
 	componentWillMount() {
 		// this.props.getListUser()
-		this.props.getDetailUserForCondition()
+		this.props.getListUserForCondition()
 	}
 	componentDidMount() {
 	}

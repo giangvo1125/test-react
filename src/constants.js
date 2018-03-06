@@ -8,3 +8,4 @@ export const GET_LIST_USER = 'get-list-user';
 export const GET_DETAIL_USER = 'get-detail-user';
 export const CLEAR_DETAIL_DATA = 'clear-detail-data';
 export const GET_LIST_USER_WITH_CONDITION = 'get-list-user-with-condition';
+export const GET_DETAIL_USER_WITH_CONDITION = 'get-detail-user-with-condition';

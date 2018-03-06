@@ -11,20 +11,7 @@ const getListUser = () => (dispatch) => {
 	})
 }
 
-const getDetailUser = (username) => (dispatch) => {
-	axios.get(`https://api.github.com/users/${username}`)
-	.then((response) => {
-		var { data } = response || {}
-		dispatch({
-			type: types.GET_DETAIL_USER, 
-			payload: {data: data}
-		})
-	}, (err) => {
-		console.log('err ',err)
-	})
-} 
-
-const getDetailUserForCondition = () => (dispatch, getState) => {
+const getListUserForCondition = () => (dispatch, getState) => {
 	let {conditionUserName} = getState().users
 	const makePromise = (name) => {
 		var p = new Promise((a, b) => {
@@ -53,6 +40,35 @@ const getDetailUserForCondition = () => (dispatch, getState) => {
 	})
 } 
 
+const getDetailUser = (username) => (dispatch) => {
+	axios.get(`https://api.github.com/users/${username}`)
+	.then((response) => {
+		var { data } = response || {}
+		dispatch({
+			type: types.GET_DETAIL_USER, 
+			payload: {data: data}
+		})
+	}, (err) => {
+		console.log('err ',err)
+	})
+}
+
+const getDetailUserForCondition = (username) => (dispatch, getState) => {
+	let {list} = getState().users;
+	let user = _.find(list, (item) => {
+		return item.login == username
+	})
+	if(!_.isEmpty(user)) {
+		dispatch({
+			type: types.GET_DETAIL_USER_WITH_CONDITION, 
+			payload: {data: user}
+		})
+	}
+	else {
+		dispatch(getDetailUser(username))
+	}
+}
+
 const clearDetail = () => (dispatch) => {
 	dispatch({
 		type: types.CLEAR_DETAIL_DATA, 
@@ -64,5 +80,6 @@ module.exports = {
 	getListUser, 
 	getDetailUser, 
 	clearDetail, 
+	getListUserForCondition, 
 	getDetailUserForCondition, 
 }
