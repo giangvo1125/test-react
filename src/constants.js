@@ -7,3 +7,4 @@ export const GET_BLOG = 'get-blog';
 export const GET_LIST_USER = 'get-list-user';
 export const GET_DETAIL_USER = 'get-detail-user';
 export const CLEAR_DETAIL_DATA = 'clear-detail-data';
+export const GET_LIST_USER_WITH_CONDITION = 'get-list-user-with-condition';

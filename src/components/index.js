@@ -12,7 +12,8 @@ class ContentComponent extends Component {
         context.router
 	}
 	componentWillMount() {
-		this.props.getListUser()
+		// this.props.getListUser()
+		this.props.getDetailUserForCondition()
 	}
 	componentDidMount() {
 	}
